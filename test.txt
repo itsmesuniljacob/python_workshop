@@ -1,0 +1,4 @@
+This is test file
+fortune favours the brave
+seek and tell functions in Python
+and am testing write to new file
