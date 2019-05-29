@@ -1,2 +1,2 @@
-pylint==2.1.1
+pylint
 git2json
