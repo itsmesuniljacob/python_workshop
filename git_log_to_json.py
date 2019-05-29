@@ -1,15 +1,15 @@
-import sys
-import importlib.util
-from subprocess import Popen, PIPE
-import git2json
-
 '''
-This module use git2json package to transform the 
+This module use git2json package to transform the
 output from the `git log` command into json format
 
 The output is written to a file after removing EOL
 characters
 '''
+import sys
+import importlib.util
+from subprocess import Popen, PIPE
+import git2json # pylint: disable=W0611
+
 PACKAGE_NAMES = ['git2json']
 for PACKAGE_NAME in PACKAGE_NAMES:
     spec = importlib.util.find_spec(PACKAGE_NAME)
