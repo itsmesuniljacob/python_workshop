@@ -17,8 +17,8 @@ for PACKAGE_NAME in PACKAGE_NAMES:
         print(PACKAGE_NAME+' not installed')
         sys.exit()
 PROGRAM_NAME = sys.argv[0]
-GIT_DIR = sys.argv[1:]
 
+GIT_DIR = sys.argv[1:]
 if len(GIT_DIR) != 1:
     print('Argument missing:')
     print('      Usage: python {} {}'.format(sys.argv[0], 'git directory'))
