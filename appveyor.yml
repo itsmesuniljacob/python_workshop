@@ -1,0 +1,7 @@
+image: Visual Studio 2017
+install:
+  - ps: pip install -r requirements.txt
+build_script:
+  - ps: pylint git_log_to_json.py
+on_finish:
+  - ps: Write-Output "Build completed"
