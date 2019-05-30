@@ -2,3 +2,4 @@ pylint
 git2json
 pytest
 codecov
+pytest-cov
