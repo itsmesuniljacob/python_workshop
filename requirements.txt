@@ -1,2 +1,4 @@
 pylint
 git2json
+pytest
+codecov
