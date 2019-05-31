@@ -6,20 +6,20 @@ The output is written to a file after removing EOL
 characters
 '''
 import sys
-import importlib.util
 from subprocess import Popen, PIPE
-import git2json # pylint: disable=W0611
+try:
+    import git2json # pylint: disable=W0611
+except ModuleNotFoundError:
+    print('Please install git2json package:')
+    print('       Usage: pip install git2json')
+    sys.exit(1)
 
-def main():
+def accept_argument():
     '''
-    Main program
+    This function would accept argument.
+    If no arguments are given the function will
+    throw an error
     '''
-    package_names = ['git2json']
-    for package_name in package_names:
-        spec = importlib.util.find_spec(package_name)
-        if spec is None:
-            print(package_name+' not installed')
-            sys.exit()
     program_name = sys.argv[0]
     print(program_name)
     git_dir = sys.argv[1:]
@@ -27,14 +27,28 @@ def main():
         print('Argument missing:')
         print('      Usage: python {} {}'.format(sys.argv[0], 'git directory'))
         sys.exit()
+    return git_dir
 
+def parse_json_logs(git_dir):
+    '''
+    This function will call the git2json module
+    and create a JSON output
+    '''
     module_name = 'git2json'
     process = Popen(module_name, cwd=git_dir[0], stdout=PIPE, stderr=PIPE)
     (process, error) = process.communicate()
     print(error)
     remove_byte_literal = process.decode('utf-8')
-    with open('out.json', 'w') as file_name:
-        print(remove_byte_literal, file=file_name)
+    return remove_byte_literal
 
-if __name__ == '__main__':
-    main()
+def write_to_outputfile(data):
+    '''
+    This function will write the json to
+    local output file
+    '''
+    with open('out.json', 'w') as file_name:
+        print(data, file=file_name)
+
+dot_git_directory_location = accept_argument()
+git_log_json_output = parse_json_logs(dot_git_directory_location)
+write_to_outputfile(git_log_json_output)
