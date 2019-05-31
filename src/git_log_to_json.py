@@ -33,6 +33,7 @@ def parse_json_logs(git_dir):
     '''
     This function will call the git2json module
     and create a JSON output
+    
     '''
     module_name = 'git2json'
     process = Popen(module_name, cwd=git_dir[0], stdout=PIPE, stderr=PIPE)
