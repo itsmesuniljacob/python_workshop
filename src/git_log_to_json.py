@@ -20,8 +20,6 @@ def accept_argument():
     If no arguments are given the function will
     throw an error
     '''
-    program_name = sys.argv[0]
-    print(program_name)
     git_dir = sys.argv[1:]
     if len(git_dir) != 1:
         print('Argument missing:')
@@ -29,15 +27,13 @@ def accept_argument():
         sys.exit()
     return git_dir
 
-def parse_json_logs(git_dir):
+def parse_json_logs(git_dir, module_name):
     '''
     This function will call the git2json module
     and create a JSON output
     '''
-    module_name = 'git2json'
     process = Popen(module_name, cwd=git_dir[0], stdout=PIPE, stderr=PIPE)
-    (process, error) = process.communicate()
-    print(error)
+    (process, error) = process.communicate() # pylint: disable=unused-variable
     remove_byte_literal = process.decode('utf-8')
     return remove_byte_literal
 
@@ -49,6 +45,7 @@ def write_to_outputfile(data):
     with open('out.json', 'w') as file_name:
         print(data, file=file_name)
 
-dot_git_directory_location = accept_argument()
-git_log_json_output = parse_json_logs(dot_git_directory_location)
-write_to_outputfile(git_log_json_output)
+DOT_GIT_DIRECTORY = accept_argument()
+MODULE_NAME = 'git2json'
+GIT_LOG_JSON_OUTPUT = parse_json_logs(DOT_GIT_DIRECTORY, MODULE_NAME)
+write_to_outputfile(GIT_LOG_JSON_OUTPUT)
